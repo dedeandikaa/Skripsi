@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,8 +18,9 @@ class DatabaseSeeder extends Seeder
             'nip' => '1908718210',
             'nama' => 'Dede Andika',
             'telp' => '089671654666',
+            'jk' => 'laki-laki',
             'alamat' => 'Jalan Suli Denpasar',
-            'level' => 'pegawai'
+            'level' => 'admin'
         ]);
     }
 }

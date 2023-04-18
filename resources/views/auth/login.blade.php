@@ -15,7 +15,7 @@
         <!-- Password -->
         <div class="mt-4">
             <x-input-label for="password" :value="__('Password')" />
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" :value="old('password')" name="password" type="text" placeholder="Masukan Password" required>
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" :value="old('password')" name="password" type="password" placeholder="Masukan Password" required>
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 

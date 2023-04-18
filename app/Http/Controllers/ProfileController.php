@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -26,13 +28,29 @@ class ProfileController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = Auth::user();
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        if ($request->pasword) {
+            $user->update([
+                'password' => Hash::make($request->password)
+            ]);
         }
 
-        $request->user()->save();
+        $old_email = $user->email;
+
+        $user->update([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'telp' => $request->telp,
+            'alamat' => $request->alamat
+        ]);
+
+        if ($old_email !== $request->email) {
+            $user->update([
+                'email_verified_at' => null
+            ]);
+            $user->sendEmailVerificationNotification();
+        }
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }

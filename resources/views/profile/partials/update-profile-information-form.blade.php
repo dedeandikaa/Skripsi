@@ -25,7 +25,7 @@
 
         <div>
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
+            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
@@ -45,6 +45,18 @@
                     @endif
                 </div>
             @endif
+        </div>
+
+        <div>
+            <x-input-label for="telp" :value="__('No Telepon')" />
+            <x-text-input id="telp" name="telp" type="number" class="mt-1 block w-full" :value="old('telp', $user->telp)" required />
+            <x-input-error class="mt-2" :messages="$errors->get('telp')" />
+        </div>
+
+        <div>
+            <x-input-label for="alamat" :value="__('Alamat')" />
+            <x-text-input id="alamat" name="alamat" type="text" class="mt-1 block w-full" :value="old('alamat', $user->alamat)" required />
+            <x-input-error class="mt-2" :messages="$errors->get('alamat')" />
         </div>
 
         <div class="flex items-center gap-4">

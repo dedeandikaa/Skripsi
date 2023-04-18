@@ -18,10 +18,11 @@ return new class extends Migration
             $table->string('nama');
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('telp');
+            $table->string('telp')->nullable();
+            $table->enum('jk', ['laki-laki', 'perempuan']);
             $table->string('alamat');
             $table->string('password')->default(Hash::make('Gptu2ks'));
-            $table->enum('level', ['kepala sekolah', 'tata usaha', 'guru', 'pegawai']);
+            $table->enum('level', ['kepala sekolah', 'tata usaha', 'guru', 'pegawai', 'admin']);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

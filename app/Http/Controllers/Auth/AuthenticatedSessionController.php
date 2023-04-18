@@ -27,6 +27,17 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
+        $email = Auth::user()->email;
+        $password = $request->password;
+        
+        if ($password === 'Gptu2ks' && $email === null) {
+            return redirect()->route('profile.edit')->with('msg', 'Harap tambahkan email dan ubah password default anda!');
+        } else if ($password === 'Sdn22dp' && $email === null) {
+            return redirect()->route('profile.edit')->with('msg', 'Harap tambahkan email dan ubah password default anda!');
+        } else {
+            return redirect()->route('profile.edit')->with('msg', 'Harap ubah password default anda!');
+        }
+
         $request->session()->regenerate();
 
         return redirect()->intended(RouteServiceProvider::HOME);
