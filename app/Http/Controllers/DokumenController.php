@@ -14,8 +14,9 @@ class DokumenController extends Controller
     public function index()
     {
         $level = Auth::user()->level;
+        $id = Auth::user()->id;
         if ($level === 'siswa') {
-            $dokumen = Dokumen::whereIn('kategori_id', [2,3,12])->orderBy('id', 'desc')->paginate(10);
+            $dokumen = Dokumen::where('siswa_id', $id)->orWhere('kategori_id', 12)->orderBy('id', 'desc')->paginate(10);
         } else {
             $dokumen = Dokumen::orderBy('id', 'desc')->paginate(10);
         }
