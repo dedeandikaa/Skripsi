@@ -29,16 +29,23 @@ class AuthenticatedSessionController extends Controller
 
         $email = Auth::user()->email;
         $password = $request->password;
+        $telp = $request->telp;
         
-        if ($password === 'Gptu2ks' && $email === null) {
-            return redirect()->route('profile.edit')->with('msg', 'Harap tambahkan email dan ubah password default anda!');
+        if ($password === 'Gptu22ks' && $email === null && $telp === null) {
+            return redirect()->route('profile.edit')->with('msg', 'Harap tambahkan email dan nomor telepon lalu ubah password default anda!');
+        } else if ($password === 'Sdn22dp' && $email === null && $telp === null) {
+            return redirect()->route('profile.edit')->with('msg', 'Harap tambahkan email dan nomor telepon lalu ubah password default anda!');
         } else if ($password === 'Sdn22dp' && $email === null) {
             return redirect()->route('profile.edit')->with('msg', 'Harap tambahkan email dan ubah password default anda!');
-        } else {
+        } else if ($password === 'Gptu22ks' && $email === null) {
+            return redirect()->route('profile.edit')->with('msg', 'Harap tambahkan email dan ubah password default anda!');
+        } else if ($password === 'Gptu22ks' || $password === 'Sdn22dp') {
             return redirect()->route('profile.edit')->with('msg', 'Harap ubah password default anda!');
+        } else if ($email === null) {
+            return redirect()->route('profile.edit')->with('msg', 'Harap tambahkan email anda!');
+        } else {
+            $request->session()->regenerate();
         }
-
-        $request->session()->regenerate();
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }

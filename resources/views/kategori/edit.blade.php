@@ -9,7 +9,10 @@
                     <label class="block text-gray-700 text-sm font-bold mb-2" for="nama">
                         Nama Kategori
                     </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="nama" name="nama" type="text" value="{{ $kategori->nama }}">
+                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="nama" name="nama" type="text" value="{{ old('nama', $kategori->nama) }}">
+                    @error('nama')
+                        <p class="text-red-600 text-sm">{!! $message !!}</p>
+                    @enderror
                 </div>
                 <div class="flex items-center gap-2">
                     <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">

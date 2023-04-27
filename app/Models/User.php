@@ -20,7 +20,9 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
-        'nip',
+        'no_induk',
+        'nisn',
+        'tahun_masuk',
         'nama',
         'telp',
         'alamat',
@@ -53,5 +55,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function kategori()
     {
         return $this->hasMany(Kategori::class);
+    }
+
+    public function dokumen()
+    {
+        return $this->hasMany(Dokumen::class);
     }
 }

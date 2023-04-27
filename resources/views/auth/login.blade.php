@@ -5,11 +5,11 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
-        <!-- NIP -->
+        <!-- No Induk -->
         <div>
-            <x-input-label for="nip" :value="__('NIP')" />
-            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" :value="old('nip')" name="nip" type="text" placeholder="Masukan Nomor Induk Pegawai" required>
-            <x-input-error :messages="$errors->get('nip')" class="mt-2" />
+            <x-input-label for="no_induk" :value="__('No Induk')" />
+            <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" :value="old('no_induk')" name="no_induk" type="text" placeholder="Masukan Nomor Induk" required>
+            <x-input-error :messages="$errors->get('no_induk')" class="mt-2" />
         </div>
 
         <!-- Password -->
@@ -30,7 +30,7 @@
         <div class="flex items-center justify-end mt-4">
             @if (Route::has('password.request'))
                 <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
+                    {{ __('Lupa password?') }}
                 </a>
             @endif
 

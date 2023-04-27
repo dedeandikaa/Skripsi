@@ -14,15 +14,17 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('nip')->max(20)->unique();
+            $table->string('no_induk')->unique();
+            $table->string('nisn')->nullable()->unique();
             $table->string('nama');
             $table->string('email')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('telp')->nullable();
             $table->enum('jk', ['laki-laki', 'perempuan']);
             $table->string('alamat');
-            $table->string('password')->default(Hash::make('Gptu2ks'));
-            $table->enum('level', ['kepala sekolah', 'tata usaha', 'guru', 'pegawai', 'admin']);
+            $table->string('tahun_masuk');
+            $table->string('password');
+            $table->enum('level', ['kepala sekolah', 'tata usaha', 'guru', 'pegawai', 'admin', 'siswa']);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

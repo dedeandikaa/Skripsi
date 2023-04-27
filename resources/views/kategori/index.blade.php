@@ -19,39 +19,41 @@
               </tr>
               </thead>
               <tbody>
-                @foreach($kategori as $ktg)
-                <tr>
-                  <td data-label="no">{{ $loop->iteration }}</td>
-                  <td data-label="nama">{{ $ktg->nama }}</td>
-                  <td data-label="nama">{{ $ktg->user->nama }}</td>
-                  <td class="actions-cell">
-                    <div class="buttons left nowrap">
-                      <a href="{{ route('kategori.edit', ['id' => $ktg->id ]) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
-                        <span class="icon"><i class="mdi mdi-pencil"></i></span>
-                      </a>
-                      <form action="{{ route('kategori.destroy', ['id' => $ktg->id]) }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" onclick="return confirm('Yakin ingin menghapus?')" class="button small red --jb-modal" data-target="sample-modal" type="button">
-                          <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                        </button>
-                      </form>
-                    </div>
-                  </td>
-                </tr>
-                @endforeach
+                @if(count($kategori) > 0)
+                  @foreach($kategori as $ktg)
+                  <tr>
+                    <td data-label="no">{{ $kategori->perPage() * ($kategori->currentPage() - 1) + $loop->index + 1 }}</td>
+                    <td data-label="nama">{{ $ktg->nama }}</td>
+                    <td data-label="nama">{{ $ktg->user->nama }}</td>
+                    <td class="actions-cell">
+                      <div class="buttons left nowrap">
+                        <a href="{{ route('kategori.edit', ['id' => $ktg->id ]) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
+                          <span class="icon"><i class="mdi mdi-pencil"></i></span>
+                        </a>
+                        <form action="{{ route('kategori.destroy', ['id' => $ktg->id]) }}" method="post">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" onclick="return confirm('Yakin ingin menghapus?')" class="button small red --jb-modal" data-target="sample-modal" type="button">
+                            <span class="icon"><i class="mdi mdi-trash-can"></i></span>
+                          </button>
+                        </form>
+                      </div>
+                    </td>
+                  </tr>
+                  @endforeach
+                @else
+                  <tr>
+                    <td colspan="9" class="text-center font-bold py-14">
+                      <span class="icon text-4xl"><i class="mdi mdi-alert-circle"></i></span>
+                      <h1>Tidak ada data kategori</h1>
+                    </td>
+                  </tr>
+                @endif
               </tbody>
             </table>
-            {{-- <div class="table-pagination">
-              <div class="flex items-center justify-between">
-                <div class="buttons">
-                  <button type="button" class="button active">1</button>
-                  <button type="button" class="button">2</button>
-                  <button type="button" class="button">3</button>
-                </div>
-                <small>Page 1 of 3</small>
-              </div>
-            </div> --}}
+            <div class="mx-3 my-3">
+              {{ $kategori->links() }}
+            </div>
           </div>
         </div>
       </section>

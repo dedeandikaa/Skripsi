@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rule;
 
 class PegawaiController extends Controller
 {
@@ -12,7 +14,7 @@ class PegawaiController extends Controller
      */
     public function index()
     {
-        $pegawai = User::where('level', 'pegawai')->get();
+        $pegawai = User::where('level', 'pegawai')->orderBy('id', 'desc')->paginate(10);
         return view('pegawai.index', compact('pegawai'));
     }
 
@@ -29,22 +31,22 @@ class PegawaiController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->jk);
         $request->validate([
-            'nama' => ['required', 'string'],
-            'nip' => ['required', 'string'],
-            'telp' => ['required', 'string'],
+            'nama' => ['required', 'string', 'min:3'],
+            'no_induk' => ['required', 'string', 'min:3', Rule::unique(User::class)],
             'jk' => ['required', 'string'],
-            'alamat' => ['required', 'string']
+            'alamat' => ['required', 'string','min:3'],
+            'tahun_masuk' => ['required', 'string'],
         ]);
 
         User::create([
             'nama' => $request->nama,
-            'nip' => $request->nip,
-            'telp' => $request->telp,
+            'no_induk' => $request->no_induk,
+            'password' => Hash::make('Gptu22ks'),
             'jk' => $request->jk,
             'alamat' => $request->alamat,
-            'level' => 'pegawai'
+            'level' => 'pegawai',
+            'tahun_masuk' => $request->tahun_masuk
         ]);
 
         return redirect()->route('pegawai.index');
@@ -65,20 +67,19 @@ class PegawaiController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama' => ['required', 'string'],
-            'nip' => ['required', 'string'],
-            'telp' => ['required', 'string'],
+            'nama' => ['required', 'string', 'min:3'],
+            'no_induk' => ['required', 'string', 'min:3', Rule::unique(User::class)->ignore($id)],
             'jk' => ['required', 'string'],
-            'alamat' => ['required', 'string']
+            'alamat' => ['required', 'string','min:3'],
+            'tahun_masuk' => ['required', 'string'],
         ]);
 
         User::where('id', $id)->update([
             'nama' => $request->nama,
-            'nip' => $request->nip,
-            'telp' => $request->telp,
+            'no_induk' => $request->no_induk,
             'jk' => $request->jk,
             'alamat' => $request->alamat,
-            'level' => 'pegawai'
+            'tahun_masuk' => $request->tahun_masuk
         ]);
 
         return redirect(route('pegawai.index'));

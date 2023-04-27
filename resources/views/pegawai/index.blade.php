@@ -22,42 +22,44 @@
               </tr>
               </thead>
               <tbody>
-                @foreach($pegawai as $pg)
+                @if(count($pegawai) > 0)
+                  @foreach($pegawai as $pg)
+                    <tr>
+                      <td data-label="No">{{ $pegawai->perPage() * ($pegawai->currentPage() - 1) + $loop->index + 1 }}</td>
+                      <td data-label="Nama">{{ $pg->nama }}</td>
+                      <td data-label="NIP">{{ $pg->no_induk }}</td>
+                      <td data-label="Jk" class="capitalize">{{ $pg->jk }}</td>
+                      <td data-label="Telepon">{{ $pg->telp ?? '-' }}</td>
+                      <td data-label="Alamat">{{ $pg->alamat }}</td>
+                      <td class="actions-cell">
+                        <div class="buttons left nowrap">
+                          <a href="{{ route('pegawai.edit', ['id' => $pg->id ]) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
+                            <span class="icon"><i class="mdi mdi-pencil"></i></span>
+                          </a>
+                          <form action="{{ route('pegawai.destroy', ['id' => $pg->id]) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" onclick="return confirm('Yakin ingin menghapus?')" class="button small red --jb-modal" data-target="sample-modal" type="button">
+                              <span class="icon"><i class="mdi mdi-trash-can"></i></span>
+                            </button>
+                          </form>
+                        </div>
+                      </td>
+                    </tr>
+                  @endforeach
+                @else
                   <tr>
-                    <td data-label="No">{{ $loop->iteration }}</td>
-                    <td data-label="Nama">{{ $pg->nama }}</td>
-                    <td data-label="NIP">{{ $pg->nip }}</td>
-                    <td data-label="Jk" class="capitalize">{{ $pg->jk }}</td>
-                    <td data-label="Telepon">{{ $pg->telp }}</td>
-                    <td data-label="Alamat">{{ $pg->alamat }}</td>
-                    <td class="actions-cell">
-                      <div class="buttons left nowrap">
-                        <a href="{{ route('pegawai.edit', ['id' => $pg->id ]) }}" class="button small blue --jb-modal"  data-target="sample-modal-2" type="button">
-                          <span class="icon"><i class="mdi mdi-pencil"></i></span>
-                        </a>
-                        <form action="{{ route('pegawai.destroy', ['id' => $pg->id]) }}" method="post">
-                          @csrf
-                          @method('DELETE')
-                          <button type="submit" onclick="return confirm('Yakin ingin menghapus?')" class="button small red --jb-modal" data-target="sample-modal" type="button">
-                            <span class="icon"><i class="mdi mdi-trash-can"></i></span>
-                          </button>
-                        </form>
-                      </div>
+                    <td colspan="9" class="text-center font-bold py-14">
+                      <span class="icon text-4xl"><i class="mdi mdi-alert-circle"></i></span>
+                      <h1>Tidak ada data pegawai</h1>
                     </td>
                   </tr>
-                @endforeach
+                @endif
               </tbody>
             </table>
-            {{-- <div class="table-pagination">
-              <div class="flex items-center justify-between">
-                <div class="buttons">
-                  <button type="button" class="button active">1</button>
-                  <button type="button" class="button">2</button>
-                  <button type="button" class="button">3</button>
-                </div>
-                <small>Page 1 of 3</small>
-              </div>
-            </div> --}}
+            <div class="mx-3 my-3">
+              {{ $pegawai->links() }}
+            </div>
           </div>
         </div>
       </section>
